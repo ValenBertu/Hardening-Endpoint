@@ -110,6 +110,7 @@ auditpol /set /subcategory:"Uso de privilegios confidenciales" /success:enable /
 Como valor agregado del proyecto, se armó:
 
 - **[`checklist-seguridad-nueva-pc.md`](Checklist-Seguridad-Nueva-PC.md)** — checklist de 20 ítems reutilizable para cualquier PC nueva.
+- **[Checklist interactiva](https://valenbertu.github.io/Hardening-Endpoint/)** - Nueva CheckList interactiva hosteada en github
 - **[`Test-EndpointHardening.ps1`](Test-EndpointHardening.ps1)** — script de PowerShell que audita 16 de esos 20 ítems automáticamente, detecta la edición de Windows (marcando BitLocker/AppLocker como "No aplica" en Home en vez de "No cumple"), y genera un reporte de cumplimiento en consola, CSV y HTML.
 
 ### Cómo correrlo
