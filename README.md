@@ -32,8 +32,8 @@ Demostrar el proceso end-to-end de bastionado (*hardening*) de un endpoint corpo
 
 Se ejecutó Windows Update hasta dejar el sistema sin actualizaciones pendientes, y se verificó la versión/build final con `winver`.
 
-![Windows Update Inicio](assets/screenshots/01-windows-update.png)
-![Windows Update Final](screenshots/01b-w.png)
+![Windows Update Inicio](assets/screenshots01-windows-update.png)
+![Windows Update Final](screenshots01b-w.png)
 
 ## Paso 2 — Antivirus / EDR
 
