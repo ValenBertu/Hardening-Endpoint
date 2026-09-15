@@ -1,11 +1,11 @@
 # Checklist de Seguridad — Nueva PC (Endpoint Hardening)
 
 > Uso: aplicar antes de entregar un equipo Windows a un usuario final.
-> Marcar cada ítem al completarlo. El script `Test-EndpointHardening.ps1` verifica automáticamente los ítems marcados con 🤖.
-> ⚠️ Los ítems marcados con 🏠 no están disponibles en Windows **Home** (requieren Pro/Enterprise/Education). El script los detecta automáticamente y los marca como "No aplica" en vez de "No cumple".
+> Marcar cada ítem al completarlo. El script `Test-EndpointHardening.ps1` verifica automáticamente los ítems marcados con un script=(S).
+> Los ítems marcados con 🏠 no están disponibles en Windows **Home** (requieren Pro/Enterprise/Education). El script los detecta automáticamente y los marca como "No aplica" en vez de "No cumple".
 
 ## 1. Sistema Operativo
-- [ ] 🤖 Windows Update instalado por completo, sin actualizaciones pendientes
+- [ ] (S) Windows Update instalado por completo, sin actualizaciones pendientes
 - [ ] 🤖 Versión y build de Windows verificada (soportada / no EOL)
 
 ## 2. Antivirus / EDR
