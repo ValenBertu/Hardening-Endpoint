@@ -33,19 +33,19 @@ Demostrar el proceso end-to-end de bastionado (*hardening*) de un endpoint corpo
 Se ejecutó Windows Update hasta dejar el sistema sin actualizaciones pendientes, y se verificó la versión/build final con `winver`.
 
 ![Windows Update Inicio](assets/screenshots01-windows-update.png)
-![Windows Update Final](screenshots01b-w.png)
+![Windows Update Final](assets/screenshots01b-w.png)
 
 ## Paso 2 — Antivirus / EDR
 
 Se confirmó que Windows Defender está activo, con protección en tiempo real habilitada.
 
-![Windows Defender activo](screenshots/02-defender-activo.png)
+![Windows Defender activo](assets/screenshots02-defender-activo.png)
 
 ## Paso 3 — Firewall
 
 Se verificó que el firewall de Windows está activo en los 3 perfiles (Dominio, Privado, Público) y se revisaron las reglas de entrada.
 
-![Firewall activo en los 3 perfiles](screenshots/03-firewall-perfiles.png)
+![Firewall activo en los 3 perfiles](assets/screenshots03-firewall-perfiles.png)
 
 ## Paso 4 — Cifrado de disco (BitLocker) 🏠
 
@@ -79,7 +79,7 @@ Disable-LocalUser -Name "SysMaint01"
 New-LocalUser -Name "UsuarioEstandar" -Password (Read-Host -AsSecureString) -FullName "Usuario Estandar"
 ```
 
-![Estado final de las cuentas locales](screenshots/06-get-localuser.png)
+![Estado final de las cuentas locales](assets/screenshots06-get-localuser.png)
 
 ## Paso 7 — Control de aplicaciones (AppLocker) 🏠
 
@@ -103,7 +103,7 @@ auditpol /set /subcategory:"Inicio de sesión" /success:enable /failure:enable
 auditpol /set /subcategory:"Uso de privilegios confidenciales" /success:enable /failure:enable
 ```
 
-![Eventos 4624 y 4625 filtrados en el Visor de eventos](screenshots/08-visor-eventos.png)
+![Eventos 4624 y 4625 filtrados en el Visor de eventos](assets/screenshots08-visor-eventos.png)
 
 ## Paso 9 — Checklist y herramienta de verificación automatizada
 
@@ -122,8 +122,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ### Reporte de cumplimiento final
 
-![Reporte de cumplimiento del script](screenshots/09-reporte-cumplimiento1.png)
-![](screenshots09-reporte-cumplimiento2.png)
+![Reporte de cumplimiento del script](assets/screenshots09-reporte-cumplimiento1.png)
+![](assets/screenshots09-reporte-cumplimiento2.png)
 
 ---
 
