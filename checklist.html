@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endpoint Hardening — Checklist interactiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161c;
+    --panel:#1a212b;
+    --panel-alt:#202836;
+    --border:#2b3442;
+    --text:#e8eaed;
+    --text-dim:#9aa4b2;
+    --text-faint:#5c6673;
+    --accent:#d4a24e;
+    --pass:#5fa779;
+    --na:#6b7280;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    padding:48px 20px 100px;
+  }
+  .wrap{max-width:760px; margin:0 auto;}
+
+  /* Header */
+  header{margin-bottom:36px;}
+  .ref{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-faint);
+    margin-bottom:10px;
+    letter-spacing:0.02em;
+  }
+  h1{
+    font-size:28px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin-bottom:8px;
+  }
+  .subtitle{
+    color:var(--text-dim);
+    font-size:15px;
+    max-width:56ch;
+  }
+
+  /* Edition toggle */
+  .edition-box{
+    margin-top:24px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .edition-label{font-size:13.5px; color:var(--text-dim);}
+  .edition-label strong{color:var(--text); font-weight:600;}
+  .toggle-group{
+    display:flex;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:3px;
+    gap:2px;
+  }
+  .toggle-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    background:transparent;
+    border:none;
+    color:var(--text-dim);
+    padding:6px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .toggle-btn.active{background:var(--accent); color:#1a1305; font-weight:600;}
+
+  /* Progress */
+  .progress-block{margin:28px 0 40px;}
+  .progress-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .progress-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:34px;
+    font-weight:600;
+    color:var(--accent);
+  }
+  .progress-meta{font-size:13px; color:var(--text-dim); text-align:right;}
+  .bar-track{
+    height:8px;
+    background:var(--panel-alt);
+    border-radius:99px;
+    overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--accent);
+    width:0%;
+    transition:width .3s ease;
+    border-radius:99px;
+  }
+
+  /* Categories */
+  .category{
+    margin-bottom:22px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .cat-header{
+    background:var(--panel-alt);
+    padding:11px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+  }
+  .cat-title{
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .cat-count{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-faint);
+  }
+  .cat-body{background:var(--panel);}
+
+  .item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:13px 16px;
+    border-bottom:1px solid var(--border);
+    cursor:pointer;
+    user-select:none;
+  }
+  .item:last-child{border-bottom:none;}
+  .item:hover{background:rgba(255,255,255,0.02);}
+
+  .checkbox{
+    flex-shrink:0;
+    width:19px;
+    height:19px;
+    border:1.5px solid var(--text-faint);
+    border-radius:5px;
+    margin-top:1px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:border-color .15s, background .15s;
+  }
+  .checkbox svg{opacity:0; transition:opacity .12s;}
+  .item.checked .checkbox{background:var(--pass); border-color:var(--pass);}
+  .item.checked .checkbox svg{opacity:1;}
+
+  .item-text{font-size:14.5px; color:var(--text); flex:1;}
+  .item.checked .item-text{color:var(--text-dim); text-decoration:line-through; text-decoration-color:var(--text-faint);}
+
+  .item-code{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-right:2px;
+  }
+
+  .item-note{
+    font-size:12.5px;
+    color:var(--text-faint);
+    margin-top:3px;
+    display:block;
+  }
+
+  .item.na{cursor:default; opacity:0.55;}
+  .item.na:hover{background:transparent;}
+  .item.na .checkbox{border-color:var(--na); background:transparent;}
+  .item.na .item-text{text-decoration:none; color:var(--text-dim);}
+  .na-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--na);
+    border:1px solid var(--na);
+    border-radius:4px;
+    padding:1px 6px;
+    margin-left:8px;
+    white-space:nowrap;
+  }
+
+  footer{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    font-size:12.5px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  footer a{color:var(--accent); text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+
+  @media (max-width:480px){
+    h1{font-size:23px;}
+    .progress-num{font-size:28px;}
+    body{padding:32px 14px 80px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="ref">checklist de bastionado de endpoint</div>
+    <h1>Nueva PC — Checklist de seguridad</h1>
+    <p class="subtitle">20 controles para preparar un equipo Windows antes de entregarlo a un usuario. Marcá cada ítem a medida que lo completás.</p>
+
+    <div class="edition-box">
+      <span class="edition-label">Edición de Windows: <strong id="editionLabel">Pro</strong></span>
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="btnPro" onclick="setEdition('pro')">PRO</button>
+        <button class="toggle-btn" id="btnHome" onclick="setEdition('home')">HOME</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="progress-block">
+    <div class="progress-top">
+      <span class="progress-num" id="progressNum">0%</span>
+      <span class="progress-meta" id="progressMeta">0 / 20 completados</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+  </div>
+
+  <div id="categories"></div>
+
+  <footer>
+    <span>Generado a partir del proyecto de hardening de endpoint.</span>
+  </footer>
+
+</div>
+
+<script>
+const DATA = [
+  { cat: "1. Sistema operativo", items: [
+    { text: "Windows Update instalado por completo, sin actualizaciones pendientes" },
+    { text: "Versión y build de Windows verificada (soportada / no EOL)" },
+  ]},
+  { cat: "2. Antivirus / EDR", items: [
+    { text: "Windows Defender (u otra solución) activo y actualizado" },
+    { text: "Protección en tiempo real habilitada" },
+    { text: "Exclusiones revisadas (ninguna innecesaria configurada)" },
+  ]},
+  { cat: "3. Firewall", items: [
+    { text: "Firewall activo en los 3 perfiles (Dominio / Privado / Público)" },
+    { text: "Reglas de entrada innecesarias deshabilitadas o eliminadas" },
+    { text: "Puertos no utilizados verificados como cerrados" },
+  ]},
+  { cat: "4. Cifrado de disco", items: [
+    { text: "BitLocker activado en la unidad del sistema (C:)", homeOnly: true },
+    { text: "Clave de recuperación respaldada fuera del equipo", homeOnly: true },
+  ]},
+  { cat: "5. Políticas de contraseña local", items: [
+    { text: "Longitud mínima de contraseña ≥ 12 caracteres" },
+    { text: "Complejidad de contraseña habilitada", note: "No configurable por comando en Home; requiere Pro o GPO" },
+    { text: "Expiración de contraseña configurada (ej. 90 días)" },
+    { text: "Bloqueo de cuenta tras intentos fallidos configurado" },
+  ]},
+  { cat: "6. Cuentas de usuario", items: [
+    { text: "Cuenta \"Administrador\" local renombrada" },
+    { text: "Cuenta \"Administrador\" local deshabilitada" },
+    { text: "Cuenta \"Invitado\" deshabilitada" },
+    { text: "Cuenta estándar creada para uso diario" },
+  ]},
+  { cat: "7. Control de aplicaciones", items: [
+    { text: "Macros de Office no firmadas deshabilitadas" },
+    { text: "AppLocker o política de restricción de software configurada", homeOnly: true },
+  ]},
+  { cat: "8. Auditoría", items: [
+    { text: "Auditoría de inicio de sesión (éxito/fallo) activada" },
+    { text: "Auditoría de cambios de privilegios activada" },
+  ]},
+];
+
+let edition = 'pro';
+let checkedState = {};
+
+function itemKey(catIdx, itemIdx){ return catIdx + '-' + itemIdx; }
+
+function render(){
+  const container = document.getElementById('categories');
+  container.innerHTML = '';
+  let totalApplicable = 0, totalChecked = 0;
+
+  DATA.forEach((group, catIdx) => {
+    const catEl = document.createElement('div');
+    catEl.className = 'category';
+
+    const catChecked = group.items.filter((it, i) => {
+      const isNA = it.homeOnly && edition === 'home';
+      return !isNA && checkedState[itemKey(catIdx,i)];
+    }).length;
+    const catApplicable = group.items.filter(it => !(it.homeOnly && edition === 'home')).length;
+
+    catEl.innerHTML = `
+      <div class="cat-header">
+        <span class="cat-title">${group.cat}</span>
+        <span class="cat-count">${catChecked}/${catApplicable}</span>
+      </div>
+      <div class="cat-body"></div>
+    `;
+    const body = catEl.querySelector('.cat-body');
+
+    group.items.forEach((it, itemIdx) => {
+      const isNA = it.homeOnly && edition === 'home';
+      const key = itemKey(catIdx, itemIdx);
+      const isChecked = !isNA && !!checkedState[key];
+
+      totalApplicable += isNA ? 0 : 1;
+      totalChecked += isChecked ? 1 : 0;
+
+      const row = document.createElement('div');
+      row.className = 'item' + (isChecked ? ' checked' : '') + (isNA ? ' na' : '');
+      row.innerHTML = `
+        <div class="checkbox">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6L4.8 8.8L10 3" stroke="#12161c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div style="flex:1">
+          <span class="item-text">${it.text}</span>
+          ${isNA ? '<span class="na-tag">No aplica · Home</span>' : ''}
+          ${it.note && !isNA ? `<span class="item-note">${it.note}</span>` : ''}
+        </div>
+      `;
+      if(!isNA){
+        row.addEventListener('click', () => {
+          checkedState[key] = !checkedState[key];
+          render();
+        });
+      }
+      body.appendChild(row);
+    });
+
+    container.appendChild(catEl);
+  });
+
+  const pct = totalApplicable > 0 ? Math.round((totalChecked/totalApplicable)*100) : 0;
+  document.getElementById('progressNum').textContent = pct + '%';
+  document.getElementById('progressMeta').textContent = totalChecked + ' / ' + totalApplicable + ' completados' + (edition==='home' ? ' · 2 no aplican en Home' : '');
+  document.getElementById('barFill').style.width = pct + '%';
+}
+
+function setEdition(ed){
+  edition = ed;
+  document.getElementById('btnPro').classList.toggle('active', ed==='pro');
+  document.getElementById('btnHome').classList.toggle('active', ed==='home');
+  document.getElementById('editionLabel').textContent = ed === 'pro' ? 'Pro' : 'Home';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
