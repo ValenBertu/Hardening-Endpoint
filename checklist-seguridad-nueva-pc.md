@@ -6,48 +6,48 @@
 
 ## 1. Sistema Operativo
 - [ ] (S) Windows Update instalado por completo, sin actualizaciones pendientes
-- [ ] 🤖 Versión y build de Windows verificada (soportada / no EOL)
+- [ ] (S) Versión y build de Windows verificada (soportada / no EOL)
 
 ## 2. Antivirus / EDR
-- [ ] 🤖 Windows Defender (u otra solución) activo y actualizado
-- [ ] 🤖 Protección en tiempo real habilitada
+- [ ] (S) Windows Defender (u otra solución) activo y actualizado
+- [ ] (S) Protección en tiempo real habilitada
 - [ ] Exclusiones revisadas (ninguna innecesaria configurada)
 
 ## 3. Firewall
-- [ ] 🤖 Firewall activo en los 3 perfiles (Dominio / Privado / Público)
+- [ ] (S) Firewall activo en los 3 perfiles (Dominio / Privado / Público)
 - [ ] Reglas de entrada innecesarias deshabilitadas o eliminadas
 - [ ] Puertos no utilizados verificados como cerrados
 
 ## 4. Cifrado de disco 🏠
-- [ ] 🤖 BitLocker activado en la unidad del sistema (C:)
-- [ ] 🤖 Clave de recuperación respaldada (Azure AD / AD / cuenta Microsoft / archivo seguro fuera del equipo)
+- [ ] (S) BitLocker activado en la unidad del sistema (C:)
+- [ ] (S) Clave de recuperación respaldada (Azure AD / AD / cuenta Microsoft / archivo seguro fuera del equipo)
 
 ## 5. Políticas de contraseña local
 > En Home, `secpol.msc` no existe: usar `net accounts` por línea de comandos (misma función, sin GUI).
-- [ ] 🤖 Longitud mínima de contraseña ≥ 12 caracteres
-- [ ] 🤖 Complejidad de contraseña habilitada *(no configurable por comando en Home; requiere Pro o GPO)*
-- [ ] 🤖 Expiración de contraseña configurada (ej. 90 días)
-- [ ] 🤖 Bloqueo de cuenta tras intentos fallidos configurado (ej. 5 intentos)
+- [ ] (S) Longitud mínima de contraseña ≥ 12 caracteres
+- [ ] (S) Complejidad de contraseña habilitada *(no configurable por comando en Home; requiere Pro o GPO)*
+- [ ] (S) Expiración de contraseña configurada (ej. 90 días)
+- [ ] (S) Bloqueo de cuenta tras intentos fallidos configurado (ej. 5 intentos)
 
 ## 6. Cuentas de usuario
 > En Home, `lusrmgr.msc` no existe: usar los cmdlets de PowerShell (`Rename-LocalUser`, `Disable-LocalUser`, `New-LocalUser`), que dan el mismo resultado.
-- [ ] 🤖 Cuenta "Administrador" local renombrada
-- [ ] 🤖 Cuenta "Administrador" local deshabilitada
-- [ ] 🤖 Cuenta "Invitado" deshabilitada
-- [ ] 🤖 Cuenta estándar creada para uso diario (sin privilegios de admin)
+- [ ] (S) Cuenta "Administrador" local renombrada
+- [ ] (S) Cuenta "Administrador" local deshabilitada
+- [ ] (S) Cuenta "Invitado" deshabilitada
+- [ ] (S) Cuenta estándar creada para uso diario (sin privilegios de admin)
 
 ## 7. Control de aplicaciones
 - [ ] Macros de Office no firmadas deshabilitadas *(depende de Office, no de la edición de Windows)*
-- [ ] 🤖 🏠 AppLocker o política de restricción de software configurada
+- [ ] (S) 🏠 AppLocker o política de restricción de software configurada
 
 ## 8. Auditoría
 > En Home, `secpol.msc` no existe: usar `auditpol` por línea de comandos (misma función, sin GUI).
-- [ ] 🤖 Auditoría de inicio de sesión (éxito/fallo) activada
-- [ ] 🤖 Auditoría de cambios de privilegios activada
+- [ ] (S) Auditoría de inicio de sesión (éxito/fallo) activada
+- [ ] (S) Auditoría de cambios de privilegios activada
 
 ## 9. Controles adicionales
-- [ ] 🤖 UAC (Control de cuentas de usuario) activado
-- [ ] 🤖 SmartScreen activado
+- [ ] (S) UAC (Control de cuentas de usuario) activado
+- [ ] (S) SmartScreen activado
 
 ---
 **Total de ítems: 20** | Automatizables con script: 16 | Manuales: 4
