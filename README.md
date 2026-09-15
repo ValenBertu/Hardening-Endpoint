@@ -135,5 +135,4 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 - Visor de eventos, `secedit`, `auditpol`, `net accounts`
 
 ## Autor
-
-*(Valentin Bertuccelli / www.linkedin.com/in/valentin-bertuccelli-139847291)
+Valentin Bertuccelli / www.linkedin.com/in/valentin-bertuccelli-139847291
