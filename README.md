@@ -32,8 +32,8 @@ Demostrar el proceso end-to-end de bastionado (*hardening*) de un endpoint corpo
 
 Se ejecutó Windows Update hasta dejar el sistema sin actualizaciones pendientes, y se verificó la versión/build final con `winver`.
 
-![Windows Update completo](screenshots/01-windows-update.png)
-![Versión y build verificada](screenshots/01b-winver.png)
+![Windows Update Inicio](screenshots/01-windows-update.png)
+![Windows Update Final](screenshots/01b-w.png)
 
 ## Paso 2 — Antivirus / EDR
 
@@ -66,8 +66,6 @@ En Windows Home, `secpol.msc` no está disponible. Se configuró vía línea de 
 ```powershell
 net accounts /minpwlen:12 /maxpwage:90 /lockoutthreshold:5
 ```
-
-![Políticas de contraseña configuradas](screenshots/05-net-accounts.png)
 
 > Nota: la complejidad de contraseña (`PasswordComplexity`) no es configurable por comando en Home; requiere Pro/Enterprise con GPO o `secedit`.
 
@@ -111,7 +109,7 @@ auditpol /set /subcategory:"Uso de privilegios confidenciales" /success:enable /
 
 Como valor agregado del proyecto, se armó:
 
-- **[`checklist-seguridad-nueva-pc.md`](checklist-seguridad-nueva-pc.md)** — checklist de 20 ítems reutilizable para cualquier PC nueva.
+- **[`checklist-seguridad-nueva-pc.md`](Checklist-Seguridad-Nueva-PC.md)** — checklist de 20 ítems reutilizable para cualquier PC nueva.
 - **[`Test-EndpointHardening.ps1`](Test-EndpointHardening.ps1)** — script de PowerShell que audita 16 de esos 20 ítems automáticamente, detecta la edición de Windows (marcando BitLocker/AppLocker como "No aplica" en Home en vez de "No cumple"), y genera un reporte de cumplimiento en consola, CSV y HTML.
 
 ### Cómo correrlo
@@ -124,7 +122,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ### Reporte de cumplimiento final
 
-![Reporte de cumplimiento del script](screenshots/09-reporte-cumplimiento.png)
+![Reporte de cumplimiento del script](screenshots/09-reporte-cumplimiento1.png)
+![](screenshots09-reporte-cumplimiento2.png)
 
 ---
 
